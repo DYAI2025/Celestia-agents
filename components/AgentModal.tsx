@@ -88,7 +88,7 @@ export const AgentModal: React.FC<AgentModalProps> = ({ agent, onClose, isOpen }
     >
       <div
         ref={modalRef}
-        className={`relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] sm:max-h-[85vh] focus:outline-none ${isClosing ? 'animate-slide-down-fade' : 'animate-slide-up-fade'}`}
+        className={`relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-visible flex flex-col max-h-[90vh] sm:max-h-[85vh] focus:outline-none ${isClosing ? 'animate-slide-down-fade' : 'animate-slide-up-fade'}`}
         onClick={(e) => e.stopPropagation()}
         tabIndex={-1}
       >
@@ -112,11 +112,11 @@ export const AgentModal: React.FC<AgentModalProps> = ({ agent, onClose, isOpen }
         </div>
 
         {/* Modal Body / Widget Container */}
-        <div className="flex-1 p-6 bg-stone-50 dark:bg-slate-950 flex flex-col items-center justify-center min-h-[400px]">
+        <div className="flex-1 p-6 bg-stone-50 dark:bg-slate-950 flex flex-col items-center justify-center min-h-[400px] overflow-visible">
           {/* ElevenLabs Widget will be inserted here */}
           <div
             ref={widgetContainerRef}
-            className="w-full h-full min-h-[300px] flex items-center justify-center"
+            className="w-full h-full min-h-[300px] flex items-center justify-center overflow-visible"
           />
 
           <div className="mt-6 text-center px-8">
