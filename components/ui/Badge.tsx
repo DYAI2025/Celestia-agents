@@ -11,35 +11,45 @@ export const Badge: React.FC<BadgeProps> = ({ children, className = '' }) => {
       className={`
         group/badge relative 
         inline-flex items-center justify-center
-        px-4 py-1.5
+        px-5 py-2
         rounded-full
         
         /* Typography */
-        text-[10px] uppercase tracking-[0.2em] font-semibold leading-none
+        text-[10px] uppercase tracking-luxury font-medium leading-none
         
-        /* Base Appearance - Glassy/Minimal */
-        bg-stone-100/60 text-stone-500 border border-stone-200/80
-        dark:bg-white/5 dark:text-stone-400 dark:border-white/10
-        backdrop-blur-sm
+        /* Base Appearance - Refined Pastel */
+        bg-gradient-to-br from-lavender-100/60 via-champagne-100/50 to-rose-50/40
+        text-mauve-600
+        border-hairline border-lavender-300/40
+        dark:from-lavender-900/20 dark:via-mauve-900/15 dark:to-navy-900/20
+        dark:text-lavender-300
+        dark:border-lavender-500/20
+        backdrop-blur-md
         
-        /* Hover Appearance - Premium Gold Glow */
-        hover:border-gold-400/50 hover:bg-white hover:text-stone-800 hover:shadow-[0_0_15px_-3px_rgba(250,204,21,0.15)]
-        dark:hover:bg-white/10 dark:hover:text-gold-100 dark:hover:border-gold-400/40
-        hover:-translate-y-0.5
+        /* Hover Appearance - Luxury Glow */
+        hover:border-lavender-400/60
+        hover:from-lavender-200/70 hover:via-champagne-200/60 hover:to-gold-100/50
+        hover:text-mauve-700
+        hover:shadow-pastel-glow
+        dark:hover:from-lavender-800/30 dark:hover:via-gold-900/20 dark:hover:to-mauve-800/25
+        dark:hover:text-lavender-200
+        dark:hover:border-gold-400/30
+        dark:hover:shadow-gold-glow
+        hover:-translate-y-0.5 hover:scale-105
         
         /* Transitions */
-        transition-all duration-300 ease-out
+        transition-all duration-400 ease-out
         cursor-default select-none overflow-hidden
         
         ${className}
       `}
     >
-      {/* Subtle Shine Effect on Hover */}
-      <div className="absolute inset-0 -translate-x-full group-hover/badge:translate-x-full transition-transform duration-700 ease-in-out bg-gradient-to-r from-transparent via-gold-100/20 to-transparent dark:via-gold-400/10 pointer-events-none" />
+      {/* Metallic Shimmer Effect on Hover */}
+      <div className="absolute inset-0 -translate-x-full group-hover/badge:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/30 dark:via-gold-400/20 to-transparent pointer-events-none" />
       
-      <span className="relative z-10 flex items-center gap-1.5">
-         {/* Tiny dot accent */}
-        <span className="w-1 h-1 rounded-full bg-stone-300 dark:bg-stone-600 group-hover/badge:bg-gold-400 transition-colors duration-300" />
+      <span className="relative z-10 flex items-center gap-2">
+         {/* Refined dot accent with gradient */}
+        <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-br from-lavender-400 to-gold-400 dark:from-lavender-500 dark:to-gold-500 opacity-70 group-hover/badge:opacity-100 group-hover/badge:scale-125 transition-all duration-300" />
         {children}
       </span>
     </span>
