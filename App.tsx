@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Layout } from './components/Layout';
 import { AgentCard } from './components/AgentCard';
 import { AgentModal } from './components/AgentModal';
+import { TutorialPopup } from './components/TutorialPopup';
 import { AGENTS } from './constants';
 import { Agent } from './types';
 import { useConvaiScript } from './hooks/useConvaiScript';
@@ -40,13 +41,16 @@ function App() {
 
         {/* Modal Logic */}
         {selectedAgent && (
-          <AgentModal 
-            agent={selectedAgent} 
+          <AgentModal
+            agent={selectedAgent}
             isOpen={!!selectedAgent}
-            onClose={() => setSelectedAgent(null)} 
+            onClose={() => setSelectedAgent(null)}
           />
         )}
-        
+
+        {/* Tutorial Popup - shows once on first visit */}
+        <TutorialPopup />
+
       </Layout>
     </div>
   );
