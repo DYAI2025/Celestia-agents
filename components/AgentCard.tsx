@@ -25,16 +25,16 @@ const FlagIcon: React.FC<{ lang: string }> = ({ lang }) => {
   const { name, path } = getFlagData(lang);
 
   return (
-    <div 
-      className="relative group/flag"
+    <div
+      className="relative group/flag flex-shrink-0"
       title={name}
     >
-      <svg 
-        viewBox="0 0 640 480" 
+      <svg
+        viewBox="0 0 640 480"
         className="w-4 h-3 rounded-[1px] shadow-sm transition-all duration-300"
         // The filter creates the bronze tint: grayscale -> sepia -> slight hue rotate for gold tone -> low contrast
         style={{
-          filter: 'grayscale(100%) sepia(100%) hue-rotate(20deg) brightness(0.9) contrast(0.8)' 
+          filter: 'grayscale(100%) sepia(100%) hue-rotate(20deg) brightness(0.9) contrast(0.8)'
         }}
       >
         {path}
@@ -47,8 +47,8 @@ const FlagIcon: React.FC<{ lang: string }> = ({ lang }) => {
 
 export const AgentCard: React.FC<AgentCardProps> = ({ agent, onSelect }) => {
   return (
-    <div className="group relative flex flex-col h-full bg-white/60 dark:bg-navy-900/40 backdrop-blur-md border border-stone-200/80 dark:border-white/5 rounded-2xl p-6 sm:p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-gold-500/10 dark:hover:shadow-gold-500/5 hover:-translate-y-1 hover:border-gold-400/40 dark:hover:border-gold-400/30 overflow-hidden">
-      
+    <div className="group relative flex flex-col h-full bg-white/60 dark:bg-navy-900/40 backdrop-blur-md border border-stone-200/80 dark:border-white/5 rounded-2xl p-6 sm:p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-gold-500/10 dark:hover:shadow-gold-500/5 hover:-translate-y-1 hover:border-gold-400/40 dark:hover:border-gold-400/30 overflow-visible">
+
       {/* Eyebrow Label */}
       <div className="relative z-10 mb-5 flex items-center justify-between">
         <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-amber-600/80 dark:text-gold-400/90 transition-colors">
@@ -63,10 +63,10 @@ export const AgentCard: React.FC<AgentCardProps> = ({ agent, onSelect }) => {
           <h3 className="text-3xl font-serif text-stone-900 dark:text-ivory-50 font-medium tracking-tight group-hover:text-amber-900 dark:group-hover:text-gold-100 transition-colors">
             {agent.name}
           </h3>
-          
+
           {/* Language Flags (Bronze Tinted) - Moved next to name */}
           {agent.languages && (
-            <div className="flex items-center gap-1.5 pt-1.5 opacity-80 hover:opacity-100 transition-opacity">
+            <div className="flex items-center gap-1.5 pt-1.5 opacity-80 hover:opacity-100 transition-opacity overflow-visible">
               {agent.languages.map((lang) => (
                 <FlagIcon key={lang} lang={lang} />
               ))}
@@ -109,10 +109,10 @@ export const AgentCard: React.FC<AgentCardProps> = ({ agent, onSelect }) => {
         onClick={() => onSelect(agent)}
         className="
           relative z-10 w-full overflow-hidden group/btn
-          flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl 
-          bg-stone-900 dark:bg-ivory-100 text-stone-50 dark:text-navy-950 
+          flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl
+          bg-stone-900 dark:bg-ivory-100 text-stone-50 dark:text-navy-950
           font-medium text-sm tracking-wide
-          transition-all duration-300 active:scale-[0.98] 
+          transition-all duration-300 active:scale-[0.98]
           shadow-lg shadow-stone-900/10 dark:shadow-none
           border border-transparent dark:border-white/50
           group-hover:shadow-xl group-hover:bg-stone-800 dark:group-hover:bg-white
@@ -125,18 +125,18 @@ export const AgentCard: React.FC<AgentCardProps> = ({ agent, onSelect }) => {
       </button>
 
       {/* Dynamic Gradient Glow Effect */}
-      <div 
+      <div
         className="
           absolute inset-0 rounded-2xl z-0 pointer-events-none
-          bg-gradient-to-br 
-          from-gold-100/30 via-rose-50/20 to-sky-100/30 
+          bg-gradient-to-br
+          from-gold-100/30 via-rose-50/20 to-sky-100/30
           dark:from-gold-500/10 dark:via-purple-900/10 dark:to-indigo-900/10
           bg-[length:200%_200%]
-          opacity-0 group-hover:opacity-100 
+          opacity-0 group-hover:opacity-100
           transition-opacity duration-1000 ease-in-out
           animate-gradient-shift
           blur-2xl
-        " 
+        "
       />
     </div>
   );
