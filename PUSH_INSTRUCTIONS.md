@@ -35,6 +35,12 @@ After pushing, you need to enable GitHub Pages in your repository settings:
 2. Navigate to Settings → Pages
 3. Under "Build and deployment", select "GitHub Actions" as the source
 
+## Important Notes
+
+- The `dist` directory (build output) is intentionally excluded from git via .gitignore
+- GitHub Actions will build the project automatically during deployment
+- Make sure to set your `GEMINI_API_KEY` as a GitHub Secret in repository settings for the build to succeed
+
 ## Next Steps
 
 Once pushed, your GitHub Actions workflow will automatically:
