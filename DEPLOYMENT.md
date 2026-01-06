@@ -9,7 +9,7 @@ Before deploying, make sure you have:
 - A GitHub account
 - A Vercel account (for Vercel deployment)
 - Node.js installed locally
-- The project properly configured with your `GEMINI_API_KEY`
+- The project properly configured with your `GEMINI_API_KEY` and `ELEVENLABS_API_KEY`
 
 ## GitHub Pages Deployment
 
@@ -31,7 +31,9 @@ Before deploying, make sure you have:
 3. **Configure Environment Variables**:
    - Go to your GitHub repository
    - Navigate to Settings → Secrets and variables → Actions
-   - Add a new secret named `GEMINI_API_KEY` with your actual API key value
+   - Add these secrets:
+     - `GEMINI_API_KEY` with your actual API key value
+     - `ELEVENLABS_API_KEY` with your actual API key value
 
 4. **View Your Deployed Site**:
    - Once deployed, your site will be available at `https://<your-username>.github.io/<repository-name>/`
@@ -66,7 +68,9 @@ If you prefer to deploy manually:
 
 3. **Configure Environment Variables**:
    - In the Vercel dashboard, go to "Settings" → "Environment Variables"
-   - Add `GEMINI_API_KEY` with your actual API key value
+   - Add these variables:
+     - `GEMINI_API_KEY` with your actual API key value
+     - `ELEVENLABS_API_KEY` with your actual API key value
 
 4. **Deploy**:
    - Vercel will automatically deploy your project
@@ -88,37 +92,44 @@ If you prefer to deploy manually:
    ```bash
    vercel --prod
    ```
-   
+
    The first time, you'll be prompted to log in to your Vercel account.
 
 4. To ensure environment variables are set, you can deploy with:
    ```bash
    vercel env add GEMINI_API_KEY production
+   vercel env add ELEVENLABS_API_KEY production
    ```
 
 ## Environment Variables Setup
 
-Both GitHub Pages (via GitHub Actions) and Vercel require the `GEMINI_API_KEY` environment variable for the application to function properly. This API key should never be committed to the repository.
+Both GitHub Pages (via GitHub Actions) and Vercel require the `GEMINI_API_KEY` and `ELEVENLABS_API_KEY` environment variables for the application to function properly. These API keys should never be committed to the repository.
 
 ### Setting Environment Variables
 
 **For GitHub Actions:**
 - Go to GitHub → Settings → Secrets and variables → Actions
-- Add a new secret named `GEMINI_API_KEY`
+- Add these secrets:
+  - `GEMINI_API_KEY`
+  - `ELEVENLABS_API_KEY`
 
 **For Vercel:**
 - Go to Vercel Dashboard → Project Settings → Environment Variables
-- Add `GEMINI_API_KEY` as a production environment variable
+- Add these variables as production environment variables:
+  - `GEMINI_API_KEY`
+  - `ELEVENLABS_API_KEY`
 
 ## Troubleshooting
 
 ### Common Issues
 
-1. **Build fails on GitHub Actions**: Make sure you've properly configured the `GEMINI_API_KEY` as a GitHub secret.
+1. **Build fails on GitHub Actions**: Make sure you've properly configured both `GEMINI_API_KEY` and `ELEVENLABS_API_KEY` as GitHub secrets.
 
-2. **Site doesn't load after deployment**: Check that your API key is properly set in the deployment environment.
+2. **Site doesn't load after deployment**: Check that your API keys are properly set in the deployment environment.
 
-3. **Vercel deployment fails**: Ensure you have the correct build command and output directory configured in `vercel.json`.
+3. **Voice interface doesn't appear**: Verify that `ELEVENLABS_API_KEY` is correctly set in your deployment environment.
+
+4. **Vercel deployment fails**: Ensure you have the correct build command and output directory configured in `vercel.json`.
 
 ### Testing Locally Before Deployment
 

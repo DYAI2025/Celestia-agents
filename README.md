@@ -15,7 +15,11 @@ View your app in AI Studio: https://ai.studio/apps/drive/1izGRzMVj-hj3WEBJrrGBZV
 
 1. Install dependencies:
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+2. Create a `.env.local` file and add your API keys (see [.env.example](.env.example) for the format):
+   ```
+   GEMINI_API_KEY=your_actual_gemini_api_key_here
+   ELEVENLABS_API_KEY=your_actual_elevenlabs_api_key_here
+   ```
 3. Run the app:
    `npm run dev`
 
@@ -47,3 +51,12 @@ Or connect your GitHub repository to Vercel at https://vercel.com/dyai2025s-proj
 ## Environment Variables
 
 - `GEMINI_API_KEY`: Required for the Gemini API integration (set in .env.local for local development, or in platform-specific settings for production)
+- `ELEVENLABS_API_KEY`: Required for the ElevenLabs voice functionality (set in .env.local for local development, or in platform-specific settings for production)
+
+## Required API Keys
+
+To run this application, you need both:
+1. **Gemini API Key** from Google AI Studio
+2. **ElevenLabs API Key** from ElevenLabs to access the voice agents
+
+The ElevenLabs API Key is essential for the voice interface functionality. Without it, the voice agents will not work properly.

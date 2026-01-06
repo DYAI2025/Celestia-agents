@@ -35,11 +35,22 @@ After pushing, you need to enable GitHub Pages in your repository settings:
 2. Navigate to Settings → Pages
 3. Under "Build and deployment", select "GitHub Actions" as the source
 
+## 4. Configure Environment Variables
+
+To make the application work properly, you need to configure the following secrets in your GitHub repository:
+
+1. Go to your GitHub repository
+2. Navigate to Settings → Secrets and variables → Actions
+3. Add these secrets:
+   - `GEMINI_API_KEY`: Your Gemini API key
+   - `ELEVENLABS_API_KEY`: Your ElevenLabs API key
+
 ## Important Notes
 
 - The `dist` directory (build output) is intentionally excluded from git via .gitignore
 - GitHub Actions will build the project automatically during deployment
-- Make sure to set your `GEMINI_API_KEY` as a GitHub Secret in repository settings for the build to succeed
+- Make sure to set both `GEMINI_API_KEY` and `ELEVENLABS_API_KEY` as GitHub Secrets in repository settings for the app to function properly
+- Without the ElevenLabs API key, the voice interface will not work
 
 ## Next Steps
 

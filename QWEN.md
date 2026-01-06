@@ -134,6 +134,7 @@ The application uses Vite with the following configuration:
 - Glass-morphism effects are achieved using backdrop blur and transparency
 - The UI includes subtle animations and hover effects for enhanced user experience
 - The theme detection uses system preferences by default but allows manual override
+- The voice interface requires both GEMINI_API_KEY and ELEVENLABS_API_KEY to function properly
 
 ## Deployment
 
@@ -142,14 +143,15 @@ The application is configured for deployment to both GitHub Pages and Vercel:
 ### GitHub Pages
 - Uses GitHub Actions workflow in `.github/workflows/deploy.yml`
 - Automatically builds and deploys when changes are pushed to the main branch
-- Requires `GEMINI_API_KEY` to be set as a GitHub secret
+- Requires `GEMINI_API_KEY` and `ELEVENLABS_API_KEY` to be set as GitHub secrets
 - Uses relative paths for compatibility with subdirectory hosting
 
 ### Vercel
 - Uses `vercel.json` configuration for static build
 - Can be deployed via Vercel CLI or GitHub integration
-- Requires `GEMINI_API_KEY` to be set in Vercel environment variables
+- Requires `GEMINI_API_KEY` and `ELEVENLABS_API_KEY` to be set in Vercel environment variables
 - Includes catch-all route handling for SPA navigation
 
 ### Environment Variables
 - `GEMINI_API_KEY`: Required for API functionality (set in .env.local for local, and in platform-specific settings for production)
+- `ELEVENLABS_API_KEY`: Required for ElevenLabs voice interface functionality (set in .env.local for local, and in platform-specific settings for production)
