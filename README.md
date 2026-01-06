@@ -60,3 +60,4 @@ To run this application, you need both:
 2. **ElevenLabs API Key** from ElevenLabs to access the voice agents
 
 The ElevenLabs API Key is essential for the voice interface functionality. Without it, the voice agents will not work properly.
+# Celestia-agents
