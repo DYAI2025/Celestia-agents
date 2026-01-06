@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Agent } from '../types';
-import { X, Mic, Loader2 } from 'lucide-react';
-import { useConvaiScript } from '../hooks/useConvaiScript';
+import { X } from 'lucide-react';
+import { CONVAI_SCRIPT_URL } from '../constants';
 
 interface AgentModalProps {
   agent: Agent;
@@ -11,14 +11,11 @@ interface AgentModalProps {
 
 export const AgentModal: React.FC<AgentModalProps> = ({ agent, onClose, isOpen }) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  const widgetContainerRef = useRef<HTMLDivElement>(null);
   const [isClosing, setIsClosing] = useState(false);
-  const [widgetContainerId] = useState(`widget-container-${agent.id}`);
-
-  const { loaded, error } = useConvaiScript();
 
   const handleClose = () => {
     setIsClosing(true);
-    // Wait for animation to finish before calling onClose (which unmounts component)
     setTimeout(() => {
       onClose();
       setIsClosing(false);
@@ -33,7 +30,7 @@ export const AgentModal: React.FC<AgentModalProps> = ({ agent, onClose, isOpen }
 
     if (isOpen) {
       window.addEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      document.body.style.overflow = 'hidden';
     }
 
     return () => {
@@ -49,26 +46,35 @@ export const AgentModal: React.FC<AgentModalProps> = ({ agent, onClose, isOpen }
     }
   }, [isOpen]);
 
-  // Initialize the widget after script is loaded
+  // Insert the ElevenLabs widget as a custom element
   useEffect(() => {
-    if (loaded && isOpen && window.elevenlabs?.createWidget) {
-      // Wait a bit for DOM to be ready
-      const timer = setTimeout(() => {
-        try {
-          // Create the widget with proper configuration
-          const widget = window.elevenlabs.createWidget({
-            agentId: agent.elevenlabsAgentId,
-            elementId: widgetContainerId,
-            // Additional widget options can be added here if needed
-          });
-        } catch (err) {
-          console.error('Error creating ElevenLabs widget:', err);
-        }
-      }, 500);
+    if (!isOpen || !widgetContainerRef.current) return;
 
-      return () => clearTimeout(timer);
+    const container = widgetContainerRef.current;
+
+    // Clear any existing widget
+    container.innerHTML = '';
+
+    // Create the elevenlabs-convai custom element
+    const widget = document.createElement('elevenlabs-convai');
+    widget.setAttribute('agent-id', agent.elevenlabsAgentId);
+    container.appendChild(widget);
+
+    // Load the script if not already loaded
+    const existingScript = document.querySelector(`script[src="${CONVAI_SCRIPT_URL}"]`);
+    if (!existingScript) {
+      const script = document.createElement('script');
+      script.src = CONVAI_SCRIPT_URL;
+      script.async = true;
+      script.type = 'text/javascript';
+      document.body.appendChild(script);
     }
-  }, [loaded, isOpen, agent.elevenlabsAgentId, widgetContainerId]);
+
+    return () => {
+      // Cleanup widget on unmount
+      container.innerHTML = '';
+    };
+  }, [isOpen, agent.elevenlabsAgentId]);
 
   if (!isOpen) return null;
 
@@ -83,7 +89,7 @@ export const AgentModal: React.FC<AgentModalProps> = ({ agent, onClose, isOpen }
       <div
         ref={modalRef}
         className={`relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] sm:max-h-[85vh] focus:outline-none ${isClosing ? 'animate-slide-down-fade' : 'animate-slide-up-fade'}`}
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside content
+        onClick={(e) => e.stopPropagation()}
         tabIndex={-1}
       >
         {/* Modal Header */}
@@ -105,38 +111,21 @@ export const AgentModal: React.FC<AgentModalProps> = ({ agent, onClose, isOpen }
           </button>
         </div>
 
-        {/* Modal Body / Embed Container */}
+        {/* Modal Body / Widget Container */}
         <div className="flex-1 p-6 bg-stone-50 dark:bg-slate-950 flex flex-col items-center justify-center min-h-[400px]">
-          {error ? (
-            <div className="text-red-500 text-center p-4">
-              <p className="font-medium">Error loading widget: {error}</p>
-              <p className="text-sm mt-2">Please make sure you have the correct API key configured.</p>
-            </div>
-          ) : !loaded ? (
-            <div className="flex flex-col items-center justify-center">
-              <Loader2 className="h-8 w-8 animate-spin text-stone-400 mb-4" />
-              <p className="text-stone-500 dark:text-slate-400">Loading voice interface...</p>
-            </div>
-          ) : (
-            <>
-              {/* ElevenLabs Widget Container */}
-              <div id={widgetContainerId} className="w-full h-full min-h-[300px] flex items-center justify-center">
-                {/* Widget will be injected here by ElevenLabs */}
-                <div className="text-center text-stone-400">
-                  <Mic className="h-12 w-12 mx-auto mb-2 opacity-50" />
-                  <p className="text-sm">Voice interface loading...</p>
-                </div>
-              </div>
+          {/* ElevenLabs Widget will be inserted here */}
+          <div
+            ref={widgetContainerRef}
+            className="w-full h-full min-h-[300px] flex items-center justify-center"
+          />
 
-              <div className="mt-6 text-center px-8">
-                <p className="text-xs text-stone-400 dark:text-slate-500 max-w-xs mx-auto leading-relaxed">
-                  Interacting with {agent.name} via Quantum Voice Protocol.
-                  <br/>
-                  Microphone access may be required.
-                </p>
-              </div>
-            </>
-          )}
+          <div className="mt-6 text-center px-8">
+            <p className="text-xs text-stone-400 dark:text-slate-500 max-w-xs mx-auto leading-relaxed">
+              Interacting with {agent.name} via Quantum Voice Protocol.
+              <br/>
+              Microphone access may be required.
+            </p>
+          </div>
         </div>
       </div>
     </div>

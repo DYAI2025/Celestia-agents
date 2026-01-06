@@ -33,7 +33,7 @@ export const AGENTS: Agent[] = [
       'Career & vocational astrology'
     ],
     languages: ['en', 'de', 'es', 'fr', 'it', 'pt'],
-    elevenlabsAgentId: 'agent_1701kdekhhref78v6547amzrg1nb'
+    elevenlabsAgentId: 'agent_5801kdgt30khe8gsjmkt96qh55te'
   }
 ];
 
